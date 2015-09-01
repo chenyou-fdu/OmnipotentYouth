@@ -3,6 +3,6 @@
 
 void CUser_Thread::run()
 {
-    UserApi->Api->Init();
+//    UserApi->Api->Init();
     UserApi->Api->Join();
 }

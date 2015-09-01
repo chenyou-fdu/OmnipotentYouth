@@ -29,11 +29,13 @@ int main(int argc, char *argv[])
     sprintf(tmp,"MARKETDATA%d",1);
 
     std::shared_ptr<typename CTraderApi> TraderApi(new CTraderApi);
-    TraderApi->InitialInstance(tmp,API_INI_NAME);
     std::shared_ptr<typename CUserApi>UserApi(new CUserApi);
-    UserApi->InitInstance(tmp,API_INI_NAME);
+
 
     Login_dialog lg(TraderApi,UserApi);
+
+    TraderApi->InitialInstance(tmp,API_INI_NAME);
+    UserApi->InitInstance(tmp,API_INI_NAME);
     lg.setModal(true);
     lg.show();
 

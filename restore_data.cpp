@@ -17,7 +17,7 @@ Restore_Data::Restore_Data(std::shared_ptr<QVector<QString> >IDs, std::shared_pt
     int len=InstrumentIDs->size();
     for(int i=0; i<len; ++i){
         QString name=InstrumentIDs->at(i);
-        qDebug()<<name;
+       // qDebug()<<name;
         Minutes_Data->insert(name,QVector<int>(4,0));
         std::string c_name=name.toStdString();
         FILE *csv;
@@ -30,7 +30,7 @@ Restore_Data::Restore_Data(std::shared_ptr<QVector<QString> >IDs, std::shared_pt
 /*Refreah tmporal data*/
 void Restore_Data::One_Minute(CUstpFtdcDepthMarketDataField *pMarketData)
 {
-    //qDebug()<<pMarketData->UpdateTime;
+   // qDebug()<<pMarketData->UpdateTime;
     auto iter=Minutes_Data->find(QString::fromUtf8(pMarketData->InstrumentID));
     if(iter.value().at(0)==0){
         QVector<int>tmp(4,int(pMarketData->LastPrice));
@@ -56,7 +56,7 @@ void Restore_Data::One_Minute(CUstpFtdcDepthMarketDataField *pMarketData)
         }
         tmp.push_back(pMarketData->LastPrice);
         iter.value()=tmp;
-        //qDebug()<<iter.value();
+        qDebug()<<iter.value();
     }
 }
 /*Write a line per minute*/

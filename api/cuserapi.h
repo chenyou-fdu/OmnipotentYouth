@@ -8,7 +8,6 @@
 #include "profile.h"
 #include "cuserspi.h"
 
-//class CUser_Thread;//!!!!!!
 class CUserApi
 {
 public:

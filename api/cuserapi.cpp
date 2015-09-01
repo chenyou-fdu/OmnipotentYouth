@@ -2,9 +2,10 @@
 #include<qdebug.h>
 CUserApi::CUserApi()
 {
-
-
     Api_Thread=new(CUser_Thread)(this);
+    Api=CUstpFtdcMduserApi::CreateFtdcMduserApi("");
+    Spi=new(CUserSpi)(Api);
+    Api->RegisterSpi(Spi);
 }
 
 CUserApi::~CUserApi()
@@ -39,9 +40,7 @@ bool CUserApi::InitInstance(char *number, char *inifile)
     /// USTP_TERT_RESTART:从本交易日开始重传
     /// USTP_TERT_RESUME:从上次收到的续传
     /// USTP_TERT_QUICK:先传送当前行情快照,再传送登录后市场行情的内容
-    Api=CUstpFtdcMduserApi::CreateFtdcMduserApi("");
-    Spi=new(CUserSpi);
-    Api->RegisterSpi(Spi);
+
 
     int topicid = tf.ReadInt(m_number,"Topic",100);
     int tert = tf.ReadInt(m_number,"TERT",0);
@@ -80,7 +79,7 @@ bool CUserApi::InitInstance(char *number, char *inifile)
     int b=0;
     printf(Api->GetVersion(a,b));
     Api->SetHeartbeatTimeout(300);
-
+    Api->Init();
     Api_Thread->start();
     return true;
 }

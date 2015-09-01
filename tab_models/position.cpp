@@ -69,8 +69,8 @@ QVariant Position::data(const QModelIndex &index, int role) const
                 return QVariant();
             }
             else if(index.row()<5){
-                return *current_instrumentID;
-                //return currencyMap.find(*current_instrumentID).value().at(4*index.row());
+               // return *current_instrumentID;
+                return currencyMap.find(*current_instrumentID).value().at(4*index.row());
             }
             else{
                 return currencyMap.find(*current_instrumentID).value().at(2+(index.row()-5)*4);

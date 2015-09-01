@@ -2,5 +2,5 @@
 
 void CTrader_Thread::run(){
     //TraderApi->Api->Init();
-   // TraderApi->Api->Join();
+    TraderApi->Api->Join();
 }

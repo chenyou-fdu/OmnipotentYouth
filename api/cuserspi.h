@@ -4,18 +4,20 @@
 #include"USTPFtdcMduserApi.h"
 #include"USTPFtdcUserApiDataType.h"
 #include"USTPFtdcUserApiStruct.h"
+#include "public_info.h"
 class CUserSpi:public QObject,public CUstpFtdcMduserSpi
 {
     Q_OBJECT
 public:
-    CUserSpi(QObject *parent=0);
+    CUserSpi(CUstpFtdcMduserApi *Api);
 
 
     /*
     CUserSpi(CUstpFtdcMduserApi *);*/
+    void OnFrontConnected();
 signals:
     // 当客户端与行情发布服务器建立起通信连接，客户端需要进行登录
-    void OnFrontConnected();
+
 
     // 当客户端与行情发布服务器通信连接断开时，该方法被调用
     void OnFrontDisconnected();
@@ -39,8 +41,8 @@ signals:
     void OnRspSubMarketData(CUstpFtdcSpecificInstrumentField *pSpecificInstrument, CUstpFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
     ///订阅合约的相关信息
     void OnRspUnSubMarketData(CUstpFtdcSpecificInstrumentField *pSpecificInstrument, CUstpFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
-//private:
-//    CUstpFtdcMduserApi *m_pUserApi;
+private:
+    CUstpFtdcMduserApi *m_pUserApi;
 };
 
 #endif // CUSERSPI_H

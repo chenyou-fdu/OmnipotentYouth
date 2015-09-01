@@ -2,9 +2,20 @@
 #include <QDebug>
 
 
-CUserSpi::CUserSpi(QObject *parent)
+CUserSpi::CUserSpi(CUstpFtdcMduserApi *Api): m_pUserApi(Api)
 {
 
+}
+
+void CUserSpi::OnFrontConnected()
+{
+    CUstpFtdcReqUserLoginField reqUserLogin;
+    memset(&reqUserLogin,0,sizeof(CUstpFtdcReqUserLoginField));
+    strcpy_s(reqUserLogin.BrokerID,g_BrokerID);
+    strcpy_s(reqUserLogin.UserID, g_UserID);
+    strcpy_s(reqUserLogin.Password, g_Password);
+    strcpy_s(reqUserLogin.UserProductInfo,g_pProductInfo);
+    m_pUserApi->ReqUserLogin(&reqUserLogin, 0);
 }
 
 //void CUserSpi::OnRtnDepthMarketData(CUstpFtdcDepthMarketDataField *pMarketData)

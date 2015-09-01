@@ -1,3 +1,4 @@
+#pragma execution_character_set("utf-8")
 #include "login_dialog.h"
 #include "ui_login_dialog.h"
 
@@ -10,6 +11,8 @@ Login_dialog::Login_dialog(std::shared_ptr<CTraderApi>traderapi, std::shared_ptr
     ui->setupUi(this);
     connect(TraderApi->Spi,SIGNAL(OnRspUserLogin(CUstpFtdcRspUserLoginField*,CUstpFtdcRspInfoField*,int,bool)),
             this,SLOT(login_status(CUstpFtdcRspUserLoginField*,CUstpFtdcRspInfoField*,int,bool)));
+    connect(UserApi->Spi,SIGNAL(OnRspUserLogin(CUstpFtdcRspUserLoginField*,CUstpFtdcRspInfoField*,int,bool)),
+            this,SLOT(login_status2(CUstpFtdcRspUserLoginField*,CUstpFtdcRspInfoField*,int,bool)));
 }
 
 Login_dialog::~Login_dialog()
@@ -41,9 +44,9 @@ void Login_dialog::on_pushButton_clicked()
     strcpy(reqUserLogin.UserID, g_UserID);
     strcpy(reqUserLogin.Password, g_Password);
     strcpy(reqUserLogin.UserProductInfo,g_pProductInfo);
-    qDebug()<<QString::fromUtf8(g_Password);
-    qDebug()<<TraderApi->Api->ReqUserLogin(&reqUserLogin, g_nOrdLocalID);
-    qDebug()<<UserApi->Api->ReqUserLogin(&reqUserLogin, 0);
+    //qDebug()<<QString::fromUtf8(g_Password);
+    TraderApi->Api->ReqUserLogin(&reqUserLogin, g_nOrdLocalID);
+    UserApi->Api->ReqUserLogin(&reqUserLogin, 0);
 
 
 }
@@ -51,8 +54,9 @@ void Login_dialog::on_pushButton_clicked()
 void Login_dialog::login_status(CUstpFtdcRspUserLoginField *pRspUserLogin, CUstpFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
     if (pRspInfo!=NULL&&pRspInfo->ErrorID!=0){
-//        QString errormsg=QString::fromUtf8(pRspInfo->ErrorMsg);
-        qDebug()<<QString::fromUtf8(pRspInfo->ErrorMsg);
+
+
+        qDebug()<<pRspInfo->ErrorID;
         QString errormsg("failed");
         login_status_change(errormsg);
         return;

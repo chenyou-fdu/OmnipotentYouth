@@ -8,7 +8,7 @@ One_Minute_Data::One_Minute_Data(QObject *parent):QThread(parent)
 void One_Minute_Data::run()
 {
     while(1){
-        QThread::msleep(6000);
+        QThread::msleep(60000);
         emit (One_Min_Over());
     }
 }
