@@ -6,6 +6,8 @@
 #include <QVector>
 #include <QString>
 #include <QTableWidgetItem>
+#include <memory>
+#include "api/Ctraderapi.h"
 namespace Ui {
 class TradeOrder;
 }
@@ -15,7 +17,7 @@ class TradeOrder : public QWidget
     Q_OBJECT
 
 public:
-    explicit TradeOrder(QWidget *parent = 0);
+    explicit TradeOrder(std::shared_ptr<class CTraderApi> trader, QWidget *parent = 0);
     ~TradeOrder();
     void QueryInfo();
     void _updateOrderTable();
@@ -29,6 +31,8 @@ private slots:
 
 private:
     Ui::TradeOrder *ui;
+    //可调用的API指针
+    std::shared_ptr<class CTraderApi> TraderApi;
     CUstpFtdcQryOrderField* pQryOrder;
     CUstpFtdcQryTradeField* pQryTrade;
     QVector<QVector<QString> > ordResult;

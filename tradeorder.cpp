@@ -8,18 +8,22 @@
 #include <QMessageBox>
 #include <fstream>
 using namespace std;
-TradeOrder::TradeOrder(QWidget *parent) :
+TradeOrder::TradeOrder(std::shared_ptr<class CTraderApi> trader, QWidget *parent) : TraderApi(trader),
     QWidget(parent),
     ui(new Ui::TradeOrder)
 {
     ui->setupUi(this);
     setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);hide();
-    connect(spi, SIGNAL(OnRspQryOrder(CUstpFtdcOrderField*, CUstpFtdcRspInfoField*, int, bool)),
-            this, SLOT(_showOrderInfo(CUstpFtdcOrderField*,CUstpFtdcRspInfoField*,int,bool)));
-    connect(spi, SIGNAL(OnRspQryTrade(CUstpFtdcTradeField*,CUstpFtdcRspInfoField*,int,bool)),
-            this, SLOT(_showTradeInfo(CUstpFtdcTradeField*,CUstpFtdcRspInfoField*,int,bool)));
-    connect(this->ui->OrderTable, SIGNAL(cellDoubleClicked(int,int)),
-            this, SLOT(_DoubleClickWithdrawOrder(int,int)));
+//    connect(spi, SIGNAL(OnRspQryOrder(CUstpFtdcOrderField*, CUstpFtdcRspInfoField*, int, bool)),
+//            this, SLOT(_showOrderInfo(CUstpFtdcOrderField*,CUstpFtdcRspInfoField*,int,bool)));
+//    connect(spi, SIGNAL(OnRspQryTrade(CUstpFtdcTradeField*,CUstpFtdcRspInfoField*,int,bool)),
+//            this, SLOT(_showTradeInfo(CUstpFtdcTradeField*,CUstpFtdcRspInfoField*,int,bool)));
+//    connect(this->ui->OrderTable, SIGNAL(cellDoubleClicked(int,int)),
+//            this, SLOT(_DoubleClickWithdrawOrder(int,int)));
+    connect(TraderApi->Spi,SIGNAL(OnRspQryTrade(CUstpFtdcTradeField*,CUstpFtdcRspInfoField*,int,bool)),
+            this,SLOT(_showTradeInfo(CUstpFtdcTradeField*,CUstpFtdcRspInfoField*,int,bool)));
+    connect(TraderApi->Spi,SIGNAL(OnRspQryOrder(CUstpFtdcOrderField*,CUstpFtdcRspInfoField*,int,bool)),
+            this,SLOT(_showOrderInfo(CUstpFtdcOrderField*,CUstpFtdcRspInfoField*,int,bool)));
     this->setParent(parent);
     pQryOrder = new CUstpFtdcQryOrderField();
     pQryTrade = new CUstpFtdcQryTradeField();
@@ -42,25 +46,25 @@ void TradeOrder::QueryInfo(){
 }
 
 void TradeOrder::_queryTrade() {
-    tradeResult.clear();
+    //tradeResult.clear();
     strcpy(pQryTrade->ExchangeID,"CFFEX");
     strcpy(pQryTrade->BrokerID,g_BrokerID);
     strcpy(pQryTrade->UserID,g_UserID);
-    g_puserapi->ReqQryTrade(pQryTrade, g_nOrdLocalID++);
+    TraderApi->Api->ReqQryTrade(pQryTrade, g_nOrdLocalID++);
 }
 
 void TradeOrder::_queryOrder() {
-    ordResult.clear();
+    //ordResult.clear();
     strcpy(pQryOrder->ExchangeID, "CFFEX");
     strcpy(pQryOrder->BrokerID, g_BrokerID);
     strcpy(pQryOrder->UserID, g_UserID);
     //strcpy(pQryTrade->InvestorID, "01937646");
-    g_puserapi->ReqQryOrder(pQryOrder, g_nOrdLocalID++);
+    TraderApi->Api->ReqQryOrder(pQryOrder, g_nOrdLocalID++);
 }
 
 //注意要把文件保存成UTF-8 BOM格式，中文才正确
 void TradeOrder::_showOrderInfo(CUstpFtdcOrderField *pOrder, CUstpFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-    qDebug() << "FUCK" << endl;
+    qDebug() << pOrder->OrderSysID << endl;
     if (pRspInfo!=NULL&&pRspInfo->ErrorID!=0)
     {
         //qDebug() << "WRONG" << endl;
@@ -154,7 +158,7 @@ void TradeOrder::_updateOrderTable() {
     ui->OrderTable->setRowCount(ordResult.size());
     for(int i = 0; i < ordResult.size(); i++) {
         for(int j = 0; j < ordResult[i].size(); j++) {
-            ui->OrderTable->setItem(i, j, new QTableWidgetItem(ordResult[i][j]));
+            ui->OrderTable->setItem(i, j, new QTableWidgetItem(ordResult[i][j])); 
         }
     }
 }
