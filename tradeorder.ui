@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TradeOrder</class>
+ <widget class="QWidget" name="TradeOrder">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1003</width>
+    <height>459</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QWidget" name="gridLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1001</width>
+     <height>271</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="OrderTab">
+       <attribute name="title">
+        <string>委托单</string>
+       </attribute>
+       <widget class="QTableWidget" name="OrderTable">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>1001</width>
+          <height>241</height>
+         </rect>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="defaultDropAction">
+         <enum>Qt::IgnoreAction</enum>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::SingleSelection</enum>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
+        <property name="columnCount">
+         <number>9</number>
+        </property>
+        <column>
+         <property name="text">
+          <string>报单编号</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>合约</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>买卖</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>开平</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>价格</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>报单状态</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>数量</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>剩余数量</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>报单时间</string>
+         </property>
+        </column>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="TradeTab">
+       <attribute name="title">
+        <string>成交记录</string>
+       </attribute>
+       <widget class="QTableWidget" name="TradeTable">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>991</width>
+          <height>241</height>
+         </rect>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::NoSelection</enum>
+        </property>
+        <column>
+         <property name="text">
+          <string>成交编号</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>合约</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>买卖</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>开平</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>成交价格</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>成交数量</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>成交时间</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>交易所</string>
+         </property>
+        </column>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>290</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PushButton</string>
+   </property>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
