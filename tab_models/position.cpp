@@ -112,11 +112,11 @@ QVariant Position::data(const QModelIndex &index, int role) const
         return QBrush(QColor(178,5,48));
     }
     if(role==Qt::SizeHintRole){
-//        if(index.column()==0||index.column()==1){
+        if(index.column()==0||index.column()==1){
 
-//            return QSize(25,10);
-//        }
-        return QSize(25,25);
+            return QSize(25,10);
+        }
+        return QSize(100,100);
         //return QVariant();
     }
     //缺省不能少了

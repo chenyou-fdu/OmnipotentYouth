@@ -6,6 +6,7 @@ Restore_Data::Restore_Data(std::shared_ptr<QVector<QString> >IDs, std::shared_pt
     InstrumentIDs(IDs),
     UserApi(Api)
 {
+    x=0;
     Time=new(One_Minute_Data);
     Time->start();
     connect(Api->Spi,SIGNAL(OnRtnDepthMarketData(CUstpFtdcDepthMarketDataField*)),
@@ -30,7 +31,7 @@ Restore_Data::Restore_Data(std::shared_ptr<QVector<QString> >IDs, std::shared_pt
 /*Refreah tmporal data*/
 void Restore_Data::One_Minute(CUstpFtdcDepthMarketDataField *pMarketData)
 {
-   // qDebug()<<pMarketData->UpdateTime;
+    qDebug()<<pMarketData->UpdateTime;
     auto iter=Minutes_Data->find(QString::fromUtf8(pMarketData->InstrumentID));
     if(iter.value().at(0)==0){
         QVector<int>tmp(4,int(pMarketData->LastPrice));
@@ -58,6 +59,7 @@ void Restore_Data::One_Minute(CUstpFtdcDepthMarketDataField *pMarketData)
         iter.value()=tmp;
         qDebug()<<iter.value();
     }
+    qDebug()<<x++;
 }
 /*Write a line per minute*/
 void Restore_Data::Write_Csv()

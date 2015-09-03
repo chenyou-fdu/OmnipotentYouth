@@ -30,14 +30,17 @@ int main(int argc, char *argv[])
 
     std::shared_ptr<typename CTraderApi> TraderApi(new CTraderApi);
     std::shared_ptr<typename CUserApi>UserApi(new CUserApi);
+//    Login_dialog lg(TraderApi,UserApi);
 
 
-    Login_dialog lg(TraderApi,UserApi);
+//    UserApi->InitInstance(tmp,API_INI_NAME);
+//    TraderApi->InitialInstance(tmp,API_INI_NAME);
 
-    TraderApi->InitialInstance(tmp,API_INI_NAME);
-    UserApi->InitInstance(tmp,API_INI_NAME);
-    lg.setModal(true);
-    lg.show();
+
+
+
+//    lg.setModal(true);
+//    lg.show();
 
      MainWindow w(TraderApi,UserApi);
 

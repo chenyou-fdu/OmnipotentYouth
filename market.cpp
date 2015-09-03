@@ -28,7 +28,18 @@ market::market(std::shared_ptr<class CTraderApi>trader, std::shared_ptr<class CU
     ui->MktPriceTab->setAlternatingRowColors(true);
     ui->MktPriceTab->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView->setModel(Position_info);
+    for(int i=0;i<4;++i){
+        if(i<2){
+            ui->tableView->setColumnWidth(i,50);
+        }
+        else{
+            ui->tableView->setColumnWidth(i,100);
+        }
 
+    }
+    for(int i = 0; i<10; ++i){
+        ui->tableView->setRowHeight(i,30);
+    }
 //    connect to spi
     connect(UserApi->Spi,SIGNAL(OnRtnDepthMarketData(CUstpFtdcDepthMarketDataField*)),
             this,SLOT(RecordMarketPrice(CUstpFtdcDepthMarketDataField*)));

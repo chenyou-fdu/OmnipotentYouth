@@ -26,6 +26,7 @@ private:
     std::shared_ptr<QMap<QString,QVector<int> > >Minutes_Data=new(QMap<QString,QVector<int> >);
     int max_price;
     int min_price;
+    int x;
 };
 
 #endif // RESTORE_DATA_H

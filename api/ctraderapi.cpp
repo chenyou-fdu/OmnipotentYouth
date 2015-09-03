@@ -27,7 +27,7 @@ bool CTraderApi::InitialInstance(char *number, char *inifile)
         printf("不能打开配置文件\n");
         exit(-1000);
     }
-    tf.ReadString(m_number,"MDTreaderFront","",tmp,sizeof(tmp)-1);
+    tf.ReadString(m_number,"MDTraderFront","",tmp,sizeof(tmp)-1);
     mytrim(tmp);
 
     Api->RegisterFront(tmp);

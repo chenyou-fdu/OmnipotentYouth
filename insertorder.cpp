@@ -17,8 +17,7 @@ InsertOrder::InsertOrder(std::shared_ptr<class CTraderApi>trader,std::shared_ptr
     connect(TraderApi->Spi,SIGNAL(OnRspOrderInsert(CUstpFtdcInputOrderField*,CUstpFtdcRspInfoField*,int,bool))
             ,this,SLOT(Insert_Rsp(CUstpFtdcInputOrderField*,CUstpFtdcRspInfoField*,int,bool)));
 
-//    setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);hide();
-//    this->setParent(parent);
+
     memset(&ord,0,sizeof(CUstpFtdcInputOrderField));
     strcpy(ord.BrokerID,g_BrokerID);
     strcpy(ord.UserID,g_UserID);

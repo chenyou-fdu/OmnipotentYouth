@@ -12,9 +12,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>430</width>
-    <height>290</height>
+    <width>429</width>
+    <height>250</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>429</width>
+    <height>250</height>
+   </size>
   </property>
   <property name="focusPolicy">
    <enum>Qt::TabFocus</enum>
@@ -26,10 +38,10 @@
    <bool>false</bool>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>登录界面</string>
   </property>
   <property name="autoFillBackground">
-   <bool>false</bool>
+   <bool>true</bool>
   </property>
   <property name="sizeGripEnabled">
    <bool>false</bool>
@@ -41,7 +53,7 @@
    <property name="geometry">
     <rect>
      <x>180</x>
-     <y>220</y>
+     <y>190</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -67,7 +79,7 @@
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>50</y>
+     <y>20</y>
      <width>271</width>
      <height>141</height>
     </rect>
@@ -121,13 +133,13 @@
    <property name="geometry">
     <rect>
      <x>330</x>
-     <y>240</y>
+     <y>250</y>
      <width>54</width>
      <height>12</height>
     </rect>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string> </string>
    </property>
   </widget>
  </widget>

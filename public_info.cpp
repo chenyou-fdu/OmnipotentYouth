@@ -9,14 +9,13 @@ TUstpFtdcUserIDType	g_UserID;
 TUstpFtdcPasswordType	g_Password;
 
 ///报单信息
-int g_nOrdLocalID=0;
+int g_nOrdLocalID=1;
 
 char g_pProductInfo[5]="V1.0";
 
-// CUstpFtdcTraderApi *g_traderapi=NULL;
-// CTraderspi *g_traderspi=NULL;
-// CUstpFtdcMduserApi *g_userapi=NULL;
-// CUserSpi *g_userspi=NULL;
+ /*This bool variable tells the system is the user have logged in*/
+bool LoginStatus=false;
+
 public_info::public_info()
 {
 

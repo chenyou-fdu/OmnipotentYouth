@@ -44,8 +44,9 @@ void Login_dialog::on_pushButton_clicked()
     strcpy(reqUserLogin.UserID, g_UserID);
     strcpy(reqUserLogin.Password, g_Password);
     strcpy(reqUserLogin.UserProductInfo,g_pProductInfo);
+
     //qDebug()<<QString::fromUtf8(g_Password);
-    TraderApi->Api->ReqUserLogin(&reqUserLogin, g_nOrdLocalID);
+   // TraderApi->Api->ReqUserLogin(&reqUserLogin, g_nOrdLocalID);
     UserApi->Api->ReqUserLogin(&reqUserLogin, 0);
 
 
@@ -57,15 +58,16 @@ void Login_dialog::login_status(CUstpFtdcRspUserLoginField *pRspUserLogin, CUstp
 
 
         qDebug()<<pRspInfo->ErrorID;
-        QString errormsg("failed");
+        QString errormsg("LoginFailed");
         login_status_change(errormsg);
         return;
     }
     g_nOrdLocalID=atoi(pRspUserLogin->MaxOrderLocalID)+1;
     qDebug()<<g_nOrdLocalID;
-    QString success("successssssss");
+    QString success("LoginSuceess");
     login_status_change(success);
-    Sleep(1000);
+    QThread::msleep(1000);
+    LoginStatus=true;
     this->destroy();
 }
 
@@ -75,12 +77,12 @@ void Login_dialog::login_status2(CUstpFtdcRspUserLoginField *pRspUserLogin, CUst
 //        QString errormsg=QString::fromUtf8(pRspInfo->ErrorMsg);
         qDebug()<<QString::fromUtf8(pRspInfo->ErrorMsg);
         QString errormsg("failed2");
-        login_status_change(errormsg);
+        //login_status_change(errormsg);
         return;
     }
-    g_nOrdLocalID=atoi(pRspUserLogin->MaxOrderLocalID)+1;
+    //g_nOrdLocalID=atoi(pRspUserLogin->MaxOrderLocalID)+1;
     QString success("success2");
-    login_status_change(success);
+    //login_status_change(success);
     Sleep(1000);
 
 }
