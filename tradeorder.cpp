@@ -25,7 +25,7 @@ TradeOrder::TradeOrder(std::shared_ptr<class CTraderApi> trader, QWidget *parent
     connect(TraderApi->Spi,SIGNAL(OnRspQryOrder(CUstpFtdcOrderField*,CUstpFtdcRspInfoField*,int,bool)),
             this,SLOT(_showOrderInfo(CUstpFtdcOrderField*,CUstpFtdcRspInfoField*,int,bool)));
     this->setParent(parent);
-    pQryOrder = new CUstpFtdcQryOrderField();
+    //pQryOrder = new CUstpFtdcQryOrderField();
     pQryTrade = new CUstpFtdcQryTradeField();
     //_queryOrder();
     //_queryTrade();
@@ -41,25 +41,29 @@ TradeOrder::TradeOrder(std::shared_ptr<class CTraderApi> trader, QWidget *parent
 
 void TradeOrder::QueryInfo(){
     //qDebug() << "QUERY" << endl;
-    //_queryTrade();
-    _queryOrder();
+    _queryTrade();
+    //_queryOrder();
 }
 
 void TradeOrder::_queryTrade() {
     //tradeResult.clear();
+
     strcpy(pQryTrade->ExchangeID,"CFFEX");
     strcpy(pQryTrade->BrokerID,g_BrokerID);
     strcpy(pQryTrade->UserID,g_UserID);
     TraderApi->Api->ReqQryTrade(pQryTrade, g_nOrdLocalID++);
+
 }
 
 void TradeOrder::_queryOrder() {
+    CUstpFtdcQryOrderField* pQryOrder = new CUstpFtdcQryOrderField();
     //ordResult.clear();
     strcpy(pQryOrder->ExchangeID, "CFFEX");
     strcpy(pQryOrder->BrokerID, g_BrokerID);
     strcpy(pQryOrder->UserID, g_UserID);
     //strcpy(pQryTrade->InvestorID, "01937646");
     TraderApi->Api->ReqQryOrder(pQryOrder, g_nOrdLocalID++);
+    delete pQryOrder;
 }
 
 //注意要把文件保存成UTF-8 BOM格式，中文才正确
@@ -102,6 +106,9 @@ void TradeOrder::_showOrderInfo(CUstpFtdcOrderField *pOrder, CUstpFtdcRspInfoFie
 
 void TradeOrder::_showTradeInfo(CUstpFtdcTradeField *pTrade, CUstpFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 {
+    qDebug("%p\n",pTrade->TradeID);
+    qDebug() << pTrade->TradeID << endl;
+    pTrade->TradeID[5]='x';
     if (pRspInfo!=NULL&&pRspInfo->ErrorID!=0)
     {
         printf("-----------------------------\n");
@@ -148,8 +155,8 @@ void TradeOrder::_withDrawOrder(int row) {
 
 TradeOrder::~TradeOrder()
 {
-    delete pQryOrder;
-    delete pQryTrade;
+    //delete pQryOrder;
+    //delete pQryTrade;
     delete ui;
 }
 
@@ -194,5 +201,5 @@ QString TradeOrder::_getStatus(char OrderStatus){
 void TradeOrder::on_pushButton_clicked()
 {
     qDebug() << "QUERY" << endl;
-    _queryOrder();
+    QueryInfo();
 }

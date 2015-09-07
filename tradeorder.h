@@ -7,7 +7,7 @@
 #include <QString>
 #include <QTableWidgetItem>
 #include <memory>
-#include "api/Ctraderapi.h"
+#include "api/ctraderapi.h"
 namespace Ui {
 class TradeOrder;
 }
@@ -33,7 +33,7 @@ private:
     Ui::TradeOrder *ui;
     //可调用的API指针
     std::shared_ptr<class CTraderApi> TraderApi;
-    CUstpFtdcQryOrderField* pQryOrder;
+    //CUstpFtdcQryOrderField* pQryOrder;
     CUstpFtdcQryTradeField* pQryTrade;
     QVector<QVector<QString> > ordResult;
     QVector<QVector<QString> > tradeResult;
