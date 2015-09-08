@@ -6,15 +6,19 @@
 #include "USTPFtdcUserApiDataType.h"
 #include "USTPFtdcUserApiStruct.h"
 #include "public_info.h"
+#include <QString>
 class CTraderSpi : public QObject, public CUstpFtdcTraderSpi
 {
     Q_OBJECT
 public:
     CTraderSpi(CUstpFtdcTraderApi *API): m_pUserApi(API){}
     void OnFrontConnected();
+    void OnRspQryTrade(CUstpFtdcTradeField *pTrade, CUstpFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
+    void OnRspQryOrder(CUstpFtdcOrderField *pOrder, CUstpFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
 
 signals:
-    void OnRspQryOrder(CUstpFtdcOrderField *pOrder, CUstpFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
+    void OnRspQryTradeForTab(QVector<QString> eachRes);
+    void OnRspQryOrderForTab(QVector<QString> eachRes);
     void OnRspUserLogin(CUstpFtdcRspUserLoginField *pRspUserLogin, CUstpFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
    //traderSPI
     void OnRspOrderInsert(CUstpFtdcInputOrderField *pInputOrder, CUstpFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
@@ -36,7 +40,7 @@ signals:
 
    //QuerySPI
    // void OnRspQryOrder(CUstpFtdcOrderField *pOrder, CUstpFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
-    void OnRspQryTrade(CUstpFtdcTradeField *pTrade, CUstpFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
+    //void OnRspQryTrade(CUstpFtdcTradeField *pTrade, CUstpFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
     void OnRspQryExchange(CUstpFtdcRspExchangeField *pRspExchange, CUstpFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
     void OnRspQryInvestorAccount(CUstpFtdcRspInvestorAccountField *pRspInvestorAccount, CUstpFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
     void OnRspQryUserInvestor(CUstpFtdcRspUserInvestorField *pUserInvestor, CUstpFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
@@ -53,6 +57,7 @@ signals:
    ///投资者保证金率查询应答
     void OnRspQryInvestorMargin(CUstpFtdcInvestorMarginField *pInvestorMargin, CUstpFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
 private:
+    QString _getStatus(char OrderStatus) const;
     CUstpFtdcTraderApi *m_pUserApi;
 
 };
