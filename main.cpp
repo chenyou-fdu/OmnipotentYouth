@@ -13,9 +13,10 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    qRegisterMetaType<QVector<QString>>("QVector<QString>");
     strcpy(g_BrokerID, "1004");
-    strcpy(g_UserID, "0193764601");
-    strcpy(g_Password, "d50cc7d90bd7908e10a46fc5d556dda3");
+    strcpy(g_UserID, "0193764602");
+    strcpy(g_Password, "da296ff6da74be61f80c677de25ad328");
 
 
     //char* API_INI_NAME="./config/mduserdemo.ini";
