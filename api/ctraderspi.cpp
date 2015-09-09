@@ -3,7 +3,7 @@
 #endif
 #include "ctraderspi.h"
 #include <QDebug>
-
+#include <QFile>
 void CTraderSpi::OnFrontConnected()
 {
     CUstpFtdcReqUserLoginField reqUserLogin;
@@ -59,6 +59,7 @@ void CTraderSpi::OnRspQryOrder(CUstpFtdcOrderField *pOrder, CUstpFtdcRspInfoFiel
         qDebug("No Trade Info");
         return;
     }
+    if(pOrder->OrderStatus == '0') return;
     QVector<QString> eachRes;
     QString OrderSysID = pOrder->OrderSysID;
     OrderSysID = OrderSysID.trimmed();
@@ -80,6 +81,26 @@ void CTraderSpi::OnRspQryOrder(CUstpFtdcOrderField *pOrder, CUstpFtdcRspInfoFiel
     emit(OnRspQryOrderForTab(eachRes));
     return;
 }
+void CTraderSpi::OnRspOrderAction(CUstpFtdcOrderActionField *pOrderAction, CUstpFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
+{
+    if (pRspInfo!=NULL&&pRspInfo->ErrorID!=0)
+    {
+        qDebug("-----------------------------\n");
+        qDebug("Error：%s\n", pRspInfo->ErrorMsg);
+        qDebug("-----------------------------\n");
+        emit(OnRspWithdrawOrder(0));
+        return;
+    }
+    if(pOrderAction==NULL)
+    {
+        qDebug("No Info\n");
+        emit(OnRspWithdrawOrder(1));
+        return;
+    }
+    emit(OnRspWithdrawOrder(2));
+    return ;
+}
+
 QString CTraderSpi::_getStatus(char OrderStatus) const{
     switch (OrderStatus)
     {

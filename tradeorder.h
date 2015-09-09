@@ -20,11 +20,12 @@ public:
     ~TradeOrder();
     void queryOrder();
     void queryTrade();
-
+    void queryInfo();
 private slots:
     void _showOrderInfo(QVector<QString> eachRes);
     void _showTradeInfo(QVector<QString> eachRes);
     void _DoubleClickWithdrawOrder(int row, int column);
+    void _getWithdrawRes(int withDrawRes);
     void on_pushButton_clicked();
 private:
     Ui::TradeOrder *ui;
